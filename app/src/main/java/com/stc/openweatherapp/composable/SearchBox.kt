@@ -10,6 +10,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 
 @Composable
@@ -18,18 +19,27 @@ fun SearchBox(
     onQueryChanged: (String) -> Unit,
     onSearch: () -> Unit
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     OutlinedTextField(
         value = query,
         onValueChange = onQueryChanged,
+        label = { Text("Search for a location") },
         modifier = Modifier
             .fillMaxWidth(),
         placeholder = { Text("Search location") },
         leadingIcon = {
             Icon(Icons.Default.Search, contentDescription = "Search Icon")
         },
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        singleLine = true,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Search
+        ),
         keyboardActions = KeyboardActions(
-            onSearch = { onSearch() }
+            onSearch = {
+                onSearch()
+                keyboardController?.hide()
+            }
         )
     )
 }

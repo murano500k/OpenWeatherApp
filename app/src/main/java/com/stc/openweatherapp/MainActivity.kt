@@ -1,13 +1,12 @@
 package com.stc.openweatherapp
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.stc.openweatherapp.composable.WeatherScreen
 import com.stc.openweatherapp.ui.theme.OpenWeatherAppTheme
 import com.stc.openweatherapp.viewmodel.WeatherViewModel
@@ -17,10 +16,8 @@ import timber.log.Timber
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-
     private val viewModel: WeatherViewModel by viewModels()
+
     companion object {
         private const val DEFAULT_CITY = "Warsaw"
     }
@@ -29,25 +26,14 @@ class MainActivity : ComponentActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
-            getUserLocation()
+            viewModel.fetchUserLocation()
         } else {
+            Toast.makeText(
+                this,
+                getString(R.string.location_permission_denied),
+                Toast.LENGTH_LONG
+            ).show()
             Timber.e("Location permission denied")
-        }
-    }
-
-    private fun getUserLocation() {
-        try {
-            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                if (location != null) {
-                    Timber.d("Location: ${location.latitude}, ${location.longitude}")
-                    viewModel.fetchCityByCoordinates(location.latitude, location.longitude)
-                    viewModel.fetchWeatherData(location.latitude, location.longitude)
-                } else {
-                    Timber.e("Unable to fetch location")
-                }
-            }
-        } catch (e: SecurityException) {
-            Timber.e("Permission not granted for location: ${e.message}")
         }
     }
 
@@ -59,12 +45,11 @@ class MainActivity : ComponentActivity() {
                 WeatherScreen()
             }
         }
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         locationPermissionRequest.launch(android.Manifest.permission.ACCESS_COARSE_LOCATION)
 
         viewModel.coordinates.observe(this) { coordinates ->
-            if(coordinates.isNotEmpty()) {
+            if (coordinates.isNotEmpty()) {
                 Timber.d("Coordinates: ${coordinates[0].lat}, ${coordinates[0].lon}")
             }
         }
@@ -74,12 +59,16 @@ class MainActivity : ComponentActivity() {
         }
 
         viewModel.cityInfo.observe(this) { cityInfoList ->
-            if(cityInfoList.isNotEmpty()) {
+            if (cityInfoList.isNotEmpty()) {
                 Timber.d("City info: ${cityInfoList[0].name}, ${cityInfoList[0].country}")
             }
         }
 
-        viewModel.fetchCityCoordinates(DEFAULT_CITY)
+        viewModel.locationError.observe(this) { error ->
+            if (error != null) {
+                Timber.e("Location Error: $error")
+            }
+        }
     }
 }
 

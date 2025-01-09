@@ -1,21 +1,27 @@
 package com.stc.openweatherapp.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.stc.openweatherapp.R
 import com.stc.openweatherapp.model.CityCoordinates
 import com.stc.openweatherapp.model.CityInfo
 import com.stc.openweatherapp.model.WeatherResponse
 import com.stc.openweatherapp.repository.WeatherApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
-    private val weatherApiService: WeatherApiService
+    @ApplicationContext private val context: Context,
+    private val weatherApiService: WeatherApiService,
+    private val fusedLocationClient: FusedLocationProviderClient
 ) : ViewModel() {
 
 
@@ -28,13 +34,26 @@ class WeatherViewModel @Inject constructor(
     private val _cityInfo = MutableLiveData<List<CityInfo>>()
     val cityInfo: LiveData<List<CityInfo>> get() = _cityInfo
 
+    private val _locationError = MutableLiveData<String?>()
+    val locationError: LiveData<String?> get() = _locationError
+
     fun fetchCityCoordinates(cityName: String) {
         viewModelScope.launch {
             try {
                 val result = weatherApiService.getCityCoordinates(cityName)
-                _coordinates.postValue(result)
+                if (result.isNotEmpty()) {
+                    _coordinates.postValue(result)
+                    _locationError.postValue(null)
+                    fetchWeatherData(result[0].lat, result[0].lon)
+                } else {
+                    val errorMessage = context.getString(R.string.error_no_coordinates, cityName)
+                    _locationError.postValue(errorMessage)
+                    Timber.e(errorMessage)
+                }
             } catch (e: Exception) {
-                e.printStackTrace()
+                val errorMessage = context.getString(R.string.error_fetching_coordinates, cityName)
+                _locationError.postValue(errorMessage)
+                Timber.e(e, errorMessage)
             }
         }
     }
@@ -58,6 +77,20 @@ class WeatherViewModel @Inject constructor(
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    fun fetchUserLocation() {
+        try {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    fetchCityByCoordinates(location.latitude, location.longitude)
+                } else {
+                    _locationError.postValue("Unable to fetch location")
+                }
+            }
+        } catch (e: SecurityException) {
+            _locationError.postValue("Permission not granted for location")
         }
     }
 }

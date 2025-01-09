@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -26,27 +27,45 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
+    val locationError: String? by viewModel.locationError.observeAsState(null)
+    val cityInfo by viewModel.cityInfo.observeAsState(emptyList())
     var query: String by remember { mutableStateOf("") }
 
-
+    if (cityInfo.isNotEmpty()) {
+        query = cityInfo[0].name // Automatically update the search box with the city name
+    }
 
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .statusBarsPadding() // Add padding to avoid the status bar and camera cutout
-            .navigationBarsPadding() // If you want to avoid the navigation bar as well
-            .padding(16.dp) // Optional padding
+            .statusBarsPadding()
+            .navigationBarsPadding()
+            .padding(16.dp)
     ) {
         item {
             SearchBox(
                 query = query,
                 onQueryChanged = { query = it },
-                onSearch = { /* Handle search action */ }
+                onSearch = {
+                    viewModel.fetchCityCoordinates(query)
+                }
             )
         }
         item {
             Spacer(modifier = Modifier.height(16.dp))
         }
+
+        locationError?.let { errorMessage ->
+            item {
+                Text(
+                    text = errorMessage,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
+        }
+
         item {
             Text(
                 text = "Hourly Forecast",
@@ -54,7 +73,6 @@ fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
                 modifier = Modifier.padding(vertical = 8.dp)
             )
         }
-
     }
 }
 
