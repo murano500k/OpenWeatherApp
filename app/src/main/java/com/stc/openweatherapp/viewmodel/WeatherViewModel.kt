@@ -37,6 +37,9 @@ class WeatherViewModel @Inject constructor(
     private val _locationError = MutableLiveData<String?>()
     val locationError: LiveData<String?> get() = _locationError
 
+    private val _loading = MutableLiveData(false)
+    val loading: LiveData<Boolean> get() = _loading
+
     fun fetchCityCoordinates(cityName: String) {
         viewModelScope.launch {
             try {
@@ -70,27 +73,37 @@ class WeatherViewModel @Inject constructor(
     }
 
     fun fetchWeatherData(lat: Double, lon: Double, exclude: String? = null) {
+        _loading.postValue(true) // Set loading to true when the request starts
         viewModelScope.launch {
             try {
                 val response = weatherApiService.getWeatherData(lat, lon, exclude)
                 _weatherData.postValue(response)
+                _locationError.postValue(null) // Clear error on success
             } catch (e: Exception) {
-                e.printStackTrace()
+                val errorMessage = context.getString(R.string.error_fetching_weather_data)
+                _locationError.postValue(errorMessage)
+                Timber.e(e, "Error fetching weather data")
+            } finally {
+                _loading.postValue(false) // Set loading to false when the request ends
             }
         }
     }
 
     fun fetchUserLocation() {
+        _loading.postValue(true) // Set loading to true when the request starts
         try {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
                     fetchCityByCoordinates(location.latitude, location.longitude)
+                    fetchWeatherData(location.latitude, location.longitude)
                 } else {
                     _locationError.postValue("Unable to fetch location")
                 }
             }
         } catch (e: SecurityException) {
             _locationError.postValue("Permission not granted for location")
+        } finally {
+            _loading.postValue(false) // Set loading to false when the request ends
         }
     }
 }

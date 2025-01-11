@@ -91,5 +91,6 @@ dependencies {
     implementation(libs.javapoet)
     implementation(libs.timber)
     implementation(libs.play.services.location)
+    implementation(libs.navigation.compose)
 
 }

@@ -18,6 +18,7 @@ javapoet = "1.13.0" # Ensure this is the latest version.
 timber = "5.0.1"
 gms = "21.3.0"
 runtimeLivedata = "1.7.6"
+navigation_compose = "2.8.5"
 
 
 
@@ -51,6 +52,8 @@ javapoet = { module = "com.squareup:javapoet", version.ref = "javapoet" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "gms" }
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation_compose" }
+
 
 
 [plugins]

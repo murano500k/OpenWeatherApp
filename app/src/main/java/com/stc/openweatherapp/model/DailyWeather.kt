@@ -1,6 +1,5 @@
 package com.stc.openweatherapp.model
 
-import android.health.connect.datatypes.units.Temperature
 
 data class DailyWeather(
     val dt: Long,
