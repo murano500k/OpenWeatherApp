@@ -92,5 +92,9 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.play.services.location)
     implementation(libs.navigation.compose)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.material)
+    implementation(libs.hilt.navigation.compose)
+
 
 }

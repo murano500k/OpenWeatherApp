@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.stc.openweatherapp.R
-import com.stc.openweatherapp.model.CityCoordinates
 import com.stc.openweatherapp.model.CityInfo
 import com.stc.openweatherapp.model.WeatherResponse
 import com.stc.openweatherapp.repository.WeatherApiService
@@ -24,15 +23,11 @@ class WeatherViewModel @Inject constructor(
     private val fusedLocationClient: FusedLocationProviderClient
 ) : ViewModel() {
 
-
-    private val _coordinates = MutableLiveData<List<CityCoordinates>>()
-    val coordinates: LiveData<List<CityCoordinates>> get() = _coordinates
-
     private val _weatherData = MutableLiveData<WeatherResponse>()
     val weatherData: LiveData<WeatherResponse> get() = _weatherData
 
-    private val _cityInfo = MutableLiveData<List<CityInfo>>()
-    val cityInfo: LiveData<List<CityInfo>> get() = _cityInfo
+    private val _cityInfo = MutableLiveData<CityInfo>()
+    val cityInfo: LiveData<CityInfo> get() = _cityInfo
 
     private val _locationError = MutableLiveData<String?>()
     val locationError: LiveData<String?> get() = _locationError
@@ -45,7 +40,15 @@ class WeatherViewModel @Inject constructor(
             try {
                 val result = weatherApiService.getCityCoordinates(cityName)
                 if (result.isNotEmpty()) {
-                    _coordinates.postValue(result)
+                    _cityInfo.postValue(
+                        CityInfo(
+                            lat = result[0].lat,
+                            lon = result[0].lon,
+                            name = result[0].name,
+                            country = null,
+                            local_names = null
+                        )
+                    )
                     _locationError.postValue(null)
                     fetchWeatherData(result[0].lat, result[0].lon)
                 } else {
@@ -65,10 +68,21 @@ class WeatherViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val result = weatherApiService.getCityByCoordinates(lat, lon)
-                _cityInfo.postValue(result)
+                _cityInfo.postValue(result[0])
             } catch (e: Exception) {
                 Timber.e(e, "Error fetching city info")
+                _locationError.postValue("Error fetching city info")
             }
+        }
+    }
+
+    fun fetchWeatherData() {
+        val cityInfo = _cityInfo.value
+        if (cityInfo != null) {
+            fetchWeatherData(cityInfo.lat, cityInfo.lon)
+        } else {
+            Timber.e("Error fetching weather data")
+            _locationError.postValue("Location not available")
         }
     }
 
@@ -90,9 +104,12 @@ class WeatherViewModel @Inject constructor(
     }
 
     fun fetchUserLocation() {
+        Timber.d("Location fetching")
+
         _loading.postValue(true) // Set loading to true when the request starts
         try {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                Timber.d("Location fetched")
                 if (location != null) {
                     fetchCityByCoordinates(location.latitude, location.longitude)
                     fetchWeatherData(location.latitude, location.longitude)

@@ -33,6 +33,7 @@ fun Int.windDegreesToDirection(deg: Int): String {
         else -> "North"
     }
 }
+
 /**
  * Maps the UV index to a risk category label (e.g., "Moderate", "High").
  */

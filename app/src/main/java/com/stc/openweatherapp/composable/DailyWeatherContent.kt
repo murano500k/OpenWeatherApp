@@ -2,6 +2,7 @@ package com.stc.openweatherapp.composable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -99,7 +100,7 @@ fun TemperatureRow(
 
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(tempList) { item ->
             TemperatureItem(item)
@@ -120,7 +121,7 @@ fun TemperatureItem(item: TempItem) {
         Column(
             modifier = Modifier
                 .width(120.dp) // Set a width so items look consistent
-                .padding(16.dp),
+                .padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -130,12 +131,12 @@ fun TemperatureItem(item: TempItem) {
                 color = MaterialTheme.colorScheme.onSurface
             )
             Text(
-                text = "Temp: ${item.temp.round()}°C",
+                text = "${item.temp.round()}°C",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
             Text(
-                text = "Feels: ${item.feels.round()}°C",
+                text = "${item.feels.round()}°C",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
             )

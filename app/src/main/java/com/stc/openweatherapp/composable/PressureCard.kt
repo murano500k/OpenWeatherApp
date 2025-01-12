@@ -18,7 +18,7 @@ import com.stc.openweatherapp.util.getPressureDescription
 @Composable
 fun PressureCard(pressure: Int) {
     val pressureDescription = getPressureDescription(pressure)
-    
+
     Card(
         modifier = Modifier
             .fillMaxWidth()

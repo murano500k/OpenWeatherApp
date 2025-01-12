@@ -11,7 +11,8 @@ import com.stc.openweatherapp.model.DailyWeather
 
 @Composable
 fun DailyWeatherList(
-    dailyList: List<DailyWeather>
+    dailyList: List<DailyWeather>,
+    onDailyItemClick: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier.padding(16.dp)
@@ -22,7 +23,8 @@ fun DailyWeatherList(
         dailyList.forEachIndexed { index, daily ->
             DailyWeatherItem(
                 daily = daily,
-                isToday = (index == 0)
+                isToday = (index == 0),
+                onClick = { onDailyItemClick(index) }
             )
 
             // Divider between items (except after the last)

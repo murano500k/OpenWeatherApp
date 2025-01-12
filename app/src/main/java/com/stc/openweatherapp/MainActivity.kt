@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import com.stc.openweatherapp.composable.WeatherScreen
+import com.stc.openweatherapp.composable.AppNavHost
 import com.stc.openweatherapp.ui.theme.OpenWeatherAppTheme
 import com.stc.openweatherapp.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,26 +42,19 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             OpenWeatherAppTheme {
-                WeatherScreen()
+                /*WeatherScreen(
+                    onDailyItemClick = { dayIndex ->
+                        Timber.w("clicked on $dayIndex")
+                    }
+                )*/
+                AppNavHost()
             }
         }
 
         locationPermissionRequest.launch(android.Manifest.permission.ACCESS_COARSE_LOCATION)
 
-        viewModel.coordinates.observe(this) { coordinates ->
-            if (coordinates.isNotEmpty()) {
-                Timber.d("Coordinates: ${coordinates[0].lat}, ${coordinates[0].lon}")
-            }
-        }
-
         viewModel.weatherData.observe(this) { weatherResponse ->
             Timber.d("Current temp: ${weatherResponse.current.temp}")
-        }
-
-        viewModel.cityInfo.observe(this) { cityInfoList ->
-            if (cityInfoList.isNotEmpty()) {
-                Timber.d("City info: ${cityInfoList[0].name}, ${cityInfoList[0].country}")
-            }
         }
 
         viewModel.locationError.observe(this) { error ->

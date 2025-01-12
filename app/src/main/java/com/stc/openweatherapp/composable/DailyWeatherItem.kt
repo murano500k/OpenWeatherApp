@@ -27,7 +27,8 @@ import java.util.Locale
 @Composable
 fun DailyWeatherItem(
     daily: DailyWeather,
-    isToday: Boolean = false
+    isToday: Boolean = false,
+    onClick: () -> Unit
 ) {
     val dateText = remember(daily.dt) {
         if (isToday) {
@@ -50,6 +51,7 @@ fun DailyWeatherItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onClick() }
             .padding(vertical = 8.dp),
 
         verticalAlignment = Alignment.CenterVertically,
