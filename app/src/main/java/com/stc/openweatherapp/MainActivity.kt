@@ -42,11 +42,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             OpenWeatherAppTheme {
-                /*WeatherScreen(
-                    onDailyItemClick = { dayIndex ->
-                        Timber.w("clicked on $dayIndex")
-                    }
-                )*/
                 AppNavHost()
             }
         }

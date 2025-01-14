@@ -15,8 +15,8 @@ fun HourlyWeatherScreen(hourlyWeatherList: List<HourlyWeather>) {
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp) // Spacing between items
+            .padding(vertical = 8.dp),
+        horizontalArrangement = Arrangement.spacedBy(1.dp)
     ) {
         items(hourlyWeatherList) { hourlyWeather ->
             HourlyWeatherItem(hourlyWeather = hourlyWeather)

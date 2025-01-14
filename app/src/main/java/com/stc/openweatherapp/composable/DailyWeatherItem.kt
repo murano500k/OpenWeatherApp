@@ -19,10 +19,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.stc.openweatherapp.model.DailyWeather
-import com.stc.openweatherapp.util.round
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.math.roundToInt
 
 @Composable
 fun DailyWeatherItem(
@@ -45,8 +45,8 @@ fun DailyWeatherItem(
         "https://openweathermap.org/img/wn/$iconId@2x.png"
     }
 
-    val dayTemp = daily.temp.day.round()
-    val nightTemp = daily.temp.night.round()
+    val dayTemp = daily.temp.day.roundToInt()
+    val nightTemp = daily.temp.night.roundToInt()
 
     Row(
         modifier = Modifier

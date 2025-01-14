@@ -11,8 +11,6 @@ fun Double.limitToOneDecimal(): String {
     return if (rounded % 1 == 0.0) rounded.toInt().toString() else rounded.toString()
 }
 
-fun Double.round(): Double = kotlin.math.round(this)
-
 fun Int.windDegreesToDirection(deg: Int): String {
     // Normalize angle to 0..359
     val angle = (deg % 360 + 360) % 360

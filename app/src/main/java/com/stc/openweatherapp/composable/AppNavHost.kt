@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.stc.openweatherapp.composable.daily.DailyWeatherScreen
 import com.stc.openweatherapp.viewmodel.WeatherViewModel
 
 
@@ -37,7 +38,11 @@ fun AppNavHost(
             arguments = listOf(navArgument("dayIndex") { type = NavType.IntType })
         ) { backStackEntry ->
             val dayIndex = backStackEntry.arguments?.getInt("dayIndex") ?: 0
-            DailyWeatherScreen(viewModel = viewModel, dayIndex = dayIndex)
+            DailyWeatherScreen(
+                viewModel = viewModel,
+                dayIndex = dayIndex,
+                navController = navController // Pass the NavController
+            )
         }
     }
 }

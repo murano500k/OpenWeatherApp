@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.stc.openweatherapp.R
 import com.stc.openweatherapp.model.CityInfo
+import com.stc.openweatherapp.model.DaySummaryResponse
 import com.stc.openweatherapp.model.WeatherResponse
 import com.stc.openweatherapp.repository.WeatherApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,6 +35,9 @@ class WeatherViewModel @Inject constructor(
 
     private val _loading = MutableLiveData(false)
     val loading: LiveData<Boolean> get() = _loading
+
+    private val _daySummary = MutableLiveData<DaySummaryResponse>()
+    val daySummary: LiveData<DaySummaryResponse> get() = _daySummary
 
     fun fetchCityCoordinates(cityName: String) {
         viewModelScope.launch {
@@ -109,7 +113,7 @@ class WeatherViewModel @Inject constructor(
         _loading.postValue(true) // Set loading to true when the request starts
         try {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                Timber.d("Location fetched")
+                Timber.d("Location fetched lat=${location.latitude} lon=${location.longitude}")
                 if (location != null) {
                     fetchCityByCoordinates(location.latitude, location.longitude)
                     fetchWeatherData(location.latitude, location.longitude)
@@ -121,6 +125,23 @@ class WeatherViewModel @Inject constructor(
             _locationError.postValue("Permission not granted for location")
         } finally {
             _loading.postValue(false) // Set loading to false when the request ends
+        }
+    }
+
+    fun fetchDaySummary(lat: Double, lon: Double, date: String) {
+        _loading.postValue(true) // Set loading to true when the request starts
+        viewModelScope.launch {
+            try {
+                val response = weatherApiService.getDaySummary(lat, lon, date)
+                _daySummary.postValue(response)
+                _locationError.postValue(null) // Clear error on success
+            } catch (e: Exception) {
+                val errorMessage = context.getString(R.string.error_fetching_day_summary)
+                _locationError.postValue(errorMessage)
+                Timber.e(e, "Error fetching day summary")
+            } finally {
+                _loading.postValue(false) // Set loading to false when the request ends
+            }
         }
     }
 }
