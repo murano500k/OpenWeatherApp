@@ -30,6 +30,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.stc.openweatherapp.composable.details.DetailsCard
 import com.stc.openweatherapp.viewmodel.WeatherViewModel
 
 
@@ -37,7 +39,8 @@ import com.stc.openweatherapp.viewmodel.WeatherViewModel
 @Composable
 fun WeatherScreen(
     viewModel: WeatherViewModel,
-    onDailyItemClick: (Int) -> Unit
+    onDailyItemClick: (Int) -> Unit,
+    navController: NavController
 ) {
     val locationError: String? by viewModel.locationError.observeAsState(null)
     val cityInfo by viewModel.cityInfo.observeAsState()
@@ -140,18 +143,19 @@ fun WeatherScreen(
                     )
                 }
                 item {
-                    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                        WindCard(
-                            windSpeed = weather.current.wind_speed,
-                            windDeg = weather.current.wind_deg
-                        )
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    ) {
                         HumidityCard(
                             humidity = weather.current.humidity,
-                            dewPoint = weather.current.dew_point
+                            dewPoint = weather.current.dew_point,
+                            modifier = Modifier
                         )
                         UviCard(uvi = weather.current.uvi)
                         PressureCard(pressure = weather.current.pressure)
                         SunCard(weather.current.sunrise, weather.current.sunset)
+                        DetailsCard(viewModel)
                     }
                 }
             }

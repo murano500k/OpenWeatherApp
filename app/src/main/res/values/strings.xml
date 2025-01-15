@@ -7,5 +7,13 @@
     <string name="daily_weather_screen_title">Daily Weather</string>
     <string name="error_fetching_day_summary">Error fetching day summary</string>
     <string name="today">Today</string>
+    <string name="wind_details_screen_title">Wind</string>
+    <string name="max_wind_speed">Maximum wind speed for today: %1$d m/s</string>
+    <string name="now">Now</string>
+    <string name="precipitation_screen_title">Precipitation</string>
+    <string name="no_precipitation_data">No precipitation data available</string>
+    <string name="wind">Wind</string>
+    <string name="humidity">Humidity</string>
+    <string name="precipitation">Precipitation</string>
 
 </resources>

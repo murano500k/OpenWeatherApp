@@ -1,5 +1,6 @@
 package com.stc.openweatherapp.composable.daily
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -94,7 +95,8 @@ fun DailyWeatherContent(daily: DailyWeather) {
         // 4. Humidity Card
         HumidityCard(
             humidity = daily.humidity,
-            dewPoint = daily.dew_point
+            dewPoint = daily.dew_point,
+            modifier = Modifier.Companion.clickable { }
         )
 
         // 5. UVI Card

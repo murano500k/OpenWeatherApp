@@ -1,4 +1,4 @@
-package com.stc.openweatherapp.composable
+package com.stc.openweatherapp.composable.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -8,40 +8,40 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.stc.openweatherapp.composable.WeatherScreen
 import com.stc.openweatherapp.composable.daily.DailyWeatherScreen
+import com.stc.openweatherapp.composable.navigation.Routes.DAY_INDEX
 import com.stc.openweatherapp.viewmodel.WeatherViewModel
 
 
 @Composable
 fun AppNavHost(
     navController: NavHostController = rememberNavController(),
-    viewModel: WeatherViewModel = hiltViewModel() // Use the shared ViewModel
+    viewModel: WeatherViewModel = hiltViewModel()
 ) {
-
     NavHost(
         navController = navController,
-        startDestination = "weather" // Ensure this is a String
+        startDestination = Routes.WEATHER
     ) {
-        // WeatherScreen Route
-        composable("weather") {
+        composable(Routes.WEATHER) {
             WeatherScreen(
                 viewModel = viewModel,
                 onDailyItemClick = { dayIndex ->
-                    navController.navigate("daily_weather/$dayIndex")
-                }
+                    navController.navigate("${Routes.DAILY_WEATHER}/$dayIndex")
+                },
+                navController = navController
             )
         }
 
-        // DailyWeatherScreen Route with an argument for dayIndex
         composable(
-            route = "daily_weather/{dayIndex}",
-            arguments = listOf(navArgument("dayIndex") { type = NavType.IntType })
+            route = "${Routes.DAILY_WEATHER}/{${DAY_INDEX}}",
+            arguments = listOf(navArgument(DAY_INDEX) { type = NavType.IntType })
         ) { backStackEntry ->
-            val dayIndex = backStackEntry.arguments?.getInt("dayIndex") ?: 0
+            val dayIndex = backStackEntry.arguments?.getInt(DAY_INDEX) ?: 0
             DailyWeatherScreen(
                 viewModel = viewModel,
                 dayIndex = dayIndex,
-                navController = navController // Pass the NavController
+                navController = navController
             )
         }
     }

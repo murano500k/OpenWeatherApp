@@ -41,7 +41,7 @@ fun HourlyWeatherItem(
 
     // Weather icon URL
     val iconUrl = hourlyWeather.weather.firstOrNull()?.icon?.let { iconId ->
-        "https://openweathermap.org/img/wn/$iconId@2x.png"
+        "https://openweathermap.org/img/wn/$iconId@4x.png"
     }
 
     val dayBackgroundColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f)

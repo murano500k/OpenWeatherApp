@@ -24,13 +24,14 @@ import com.stc.openweatherapp.R
 @Composable
 fun HumidityCard(
     humidity: Int,
-    dewPoint: Double
+    dewPoint: Double,
+    modifier: Modifier
 ) {
     // Format dew point (e.g., "14.5")
     val dewPointStr = String.format("%.1f", dewPoint)
 
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),

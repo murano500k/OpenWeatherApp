@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import com.stc.openweatherapp.composable.AppNavHost
+import com.stc.openweatherapp.composable.navigation.AppNavHost
 import com.stc.openweatherapp.ui.theme.OpenWeatherAppTheme
 import com.stc.openweatherapp.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint

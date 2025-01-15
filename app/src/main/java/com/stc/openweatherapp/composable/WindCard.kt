@@ -27,10 +27,11 @@ import com.stc.openweatherapp.util.windDegreesToDirection
 @Composable
 fun WindCard(
     windSpeed: Double,
-    windDeg: Int
+    windDeg: Int,
+    modifier: Modifier = Modifier
 ) {
     // Convert degrees to a text direction
-    val windDirectionText = windDeg.windDegreesToDirection(windDeg)
+    val windDirectionText = windDeg.windDegreesToDirection()
     // Format wind speed with one decimal (e.g. "5.4")
     val displaySpeed = String.format("%.1f", windSpeed)
     // Brief description (e.g., "Moderate", "Strong")
@@ -40,7 +41,7 @@ fun WindCard(
     val arrowRotation = (windDeg + 180) % 360
 
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),

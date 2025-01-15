@@ -1,5 +1,6 @@
 package com.stc.openweatherapp.composable
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,7 +49,10 @@ fun WeatherCardGrid(weatherData: WeatherResponse) {
                     .fillMaxWidth()
                     .aspectRatio(1f)
             ) {
-                HumidityCard(humidity = humidity, dewPoint = dewPoint)
+                HumidityCard(
+                    humidity = humidity,
+                    dewPoint = dewPoint,
+                    modifier = Modifier.Companion.clickable { })
             }
         }
 

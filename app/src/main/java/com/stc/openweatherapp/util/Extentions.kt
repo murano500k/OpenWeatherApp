@@ -11,9 +11,9 @@ fun Double.limitToOneDecimal(): String {
     return if (rounded % 1 == 0.0) rounded.toInt().toString() else rounded.toString()
 }
 
-fun Int.windDegreesToDirection(deg: Int): String {
+fun Int.windDegreesToDirection(): String {
     // Normalize angle to 0..359
-    val angle = (deg % 360 + 360) % 360
+    val angle = (this % 360 + 360) % 360
 
     // Each direction covers 45°
     // Shift by 22.5° so the boundary is in the middle of segments
