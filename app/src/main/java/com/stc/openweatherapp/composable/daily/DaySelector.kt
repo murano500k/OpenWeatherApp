@@ -32,6 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.stc.openweatherapp.R
+import com.stc.openweatherapp.composable.HourlyWeatherItem
 import com.stc.openweatherapp.model.DailyWeather
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -52,86 +53,98 @@ fun DaySelector(
         listState.scrollToItem(selectedDayIndex)
     }
 
-    LazyRow(
+    Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        state = listState, // Attach the LazyListState
-        horizontalArrangement = Arrangement.spacedBy(1.dp)
+            .padding(8.dp)
+            .clip(CardDefaults.shape)
+            .clip(CardDefaults.shape),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer
+        )
     ) {
-        itemsIndexed(dailyWeather) { index, daily ->
-            val isSelected = index == selectedDayIndex
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            state = listState, // Attach the LazyListState
+            horizontalArrangement = Arrangement.spacedBy(1.dp)
+        ) {
+            itemsIndexed(dailyWeather) { index, daily ->
+                val isSelected = index == selectedDayIndex
 
-            // Day label (e.g., Today, Thursday)
-            val dayLabel = if (index == 0) {
-                stringResource(R.string.today)
-            } else {
-                dayFormatter.format(Date(daily.dt * 1000))
-            }
+                // Day label (e.g., Today, Thursday)
+                val dayLabel = if (index == 0) {
+                    stringResource(R.string.today)
+                } else {
+                    dayFormatter.format(Date(daily.dt * 1000))
+                }
 
-            val dayTemp = daily.temp.day.roundToInt()
-            val nightTemp = daily.temp.night.roundToInt()
+                val dayTemp = daily.temp.day.roundToInt()
+                val nightTemp = daily.temp.night.roundToInt()
 
-            val iconUrl = daily.weather.firstOrNull()?.icon?.let { iconId ->
-                "https://openweathermap.org/img/wn/$iconId@2x.png"
-            }
+                val iconUrl = daily.weather.firstOrNull()?.icon?.let { iconId ->
+                    "https://openweathermap.org/img/wn/$iconId@2x.png"
+                }
 
-            Card(
-                modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .clip(CardDefaults.shape)
-                    .clickable { onDaySelected(index) },
-                colors = CardDefaults.cardColors(
-                    containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer
-                    else MaterialTheme.colorScheme.surfaceContainerHigh
-                )
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
+                Card(
                     modifier = Modifier
                         .padding(vertical = 8.dp)
-                        .width(60.dp)
-                ) {
-                    // Day label
-                    Text(
-                        text = dayLabel,
-                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                        color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer
-                        else MaterialTheme.colorScheme.onSurface
+                        .clip(CardDefaults.shape)
+                        .clickable { onDaySelected(index) },
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (isSelected) MaterialTheme.colorScheme.tertiaryContainer
+                        else MaterialTheme.colorScheme.primaryContainer
                     )
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    // Weather icon
-                    iconUrl?.let {
-                        AsyncImage(
-                            model = it,
-                            contentDescription = "Weather Icon",
-                            modifier = Modifier.size(40.dp)
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    // Day and Night temperatures
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                            .width(60.dp)
                     ) {
+                        // Day label
                         Text(
-                            text = "$dayTemp°/",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer
-                            else MaterialTheme.colorScheme.onSurface
+                            text = dayLabel,
+                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                            color = if (isSelected) MaterialTheme.colorScheme.onTertiaryContainer
+                            else MaterialTheme.colorScheme.onPrimaryContainer
                         )
-                        Text(
-                            text = "$nightTemp°",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = if (isSelected) MaterialTheme.colorScheme.onSecondaryContainer
-                            else MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        // Weather icon
+                        iconUrl?.let {
+                            AsyncImage(
+                                model = it,
+                                contentDescription = "Weather Icon",
+                                modifier = Modifier.size(40.dp)
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        // Day and Night temperatures
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "$dayTemp°/",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer
+                                else MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = "$nightTemp°",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = if (isSelected) MaterialTheme.colorScheme.onSecondaryContainer
+                                else MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     }
                 }
             }
         }
     }
+
+
 }
