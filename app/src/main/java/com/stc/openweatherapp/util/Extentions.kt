@@ -1,5 +1,9 @@
 package com.stc.openweatherapp.util
 
+import android.content.Context
+import android.text.format.DateFormat
+import java.util.Date
+
 fun String.capitalizeFirstLetter(): String {
     return this.replaceFirstChar {
         if (it.isLowerCase()) it.uppercase() else it.toString()
@@ -80,4 +84,19 @@ fun getPressureDescription(pressure: Int): String {
         pressure < 1030 -> "High"
         else -> "Very High"
     }
+}
+
+fun Context.formatLocalTime(time: Long): String {
+    val formattedTime = DateFormat.getTimeFormat(this).format(Date(time))
+    return if (formattedTime.contains("AM") || formattedTime.contains("PM")) {
+        formattedTime.replace(":00", "") // Remove ":00" if AM/PM is present
+    } else {
+        formattedTime // Keep the original format for 24-hour time
+    }
+}
+
+
+fun Int.toBarString(): String {
+    val pressureBar = this / 1000.0 // Convert hPa to bar
+    return String.format("%.2f", pressureBar) // Format to 2 decimal places
 }

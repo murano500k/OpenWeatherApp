@@ -28,8 +28,7 @@ fun AppNavHost(
                 viewModel = viewModel,
                 onDailyItemClick = { dayIndex ->
                     navController.navigate("${Routes.DAILY_WEATHER}/$dayIndex")
-                },
-                navController = navController
+                }
             )
         }
 

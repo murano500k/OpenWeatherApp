@@ -3,8 +3,11 @@ package com.stc.openweatherapp.composable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -14,76 +17,85 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.stc.openweatherapp.R
+import com.stc.openweatherapp.util.formatLocalTime
 import java.util.Date
 
 @Composable
 fun SunCard(
-    sunrise: Long, // UNIX timestamp in seconds
-    sunset: Long   // UNIX timestamp in seconds
+    sunrise: Long,
+    sunset: Long,
+    modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
 
-    // Use device 12/24-hour preference
-    val timeFormat = remember {
-        android.text.format.DateFormat.getTimeFormat(context)
-    }
-
     // Format sunrise/sunset time
     val sunriseTime = remember(sunrise) {
-        timeFormat.format(Date(sunrise * 1000))
+        context.formatLocalTime(sunrise * 1000)
     }
     val sunsetTime = remember(sunset) {
-        timeFormat.format(Date(sunset * 1000))
+        context.formatLocalTime(sunset * 1000)
     }
 
     val sunriseColor = colorResource(id = R.color.sunrise_orange)
     val sunsetColor = colorResource(id = R.color.sunset_dark_blue)
+    // Get current time in seconds
+    val currentTime = System.currentTimeMillis() / 1000
+
+    // Determine whether to show time till sunrise or sunset
+    val (timeLabel, targetTime) = if (currentTime < sunrise) {
+        stringResource(R.string.sunrise) to sunrise
+    } else if (currentTime < sunset) {
+        stringResource(R.string.sunset) to sunset
+    } else {
+        stringResource(R.string.sunrise) to sunrise + 24 * 3600 // Next sunrise
+    }
+
+    // Calculate the time difference
+    val timeDifference = targetTime - currentTime
+    val hours = timeDifference / 3600
+    val minutes = (timeDifference % 3600) / 60
+
+    val timeDisplay = String.format("%02d:%02d", hours, minutes)
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        )
+        modifier = modifier
     ) {
-        Row(
+
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(horizontalAlignment = Alignment.Start) {
-                Text(
-                    text = "Sunrise",
-                    style = MaterialTheme.typography.titleSmall,
-                    color = sunriseColor
-                )
-                Text(
-                    text = sunriseTime,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = sunriseColor
-                )
-            }
-            Column(horizontalAlignment = Alignment.End) {
-                Text(
-                    text = "Sunset",
-                    style = MaterialTheme.typography.titleSmall,
-                    color = sunsetColor
-                )
-                Text(
-                    text = sunsetTime,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = sunsetColor
-                )
-            }
+            Text(
+                text = "Sunrise",
+                style = MaterialTheme.typography.titleMedium,
+                color = sunriseColor
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+
+            Text(
+                text = sunriseTime,
+                style = MaterialTheme.typography.bodyLarge,
+                color = sunriseColor
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = "Sunset",
+                style = MaterialTheme.typography.titleMedium,
+                color = sunsetColor
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+
+            Text(
+                text = sunsetTime,
+                style = MaterialTheme.typography.bodyLarge,
+                color = sunsetColor
+            )
         }
     }
 }

@@ -22,24 +22,15 @@ import kotlin.math.roundToInt
  */
 @Composable
 fun TemperatureItem(item: TempItem) {
-    val dayBackgroundColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f)
-
-    // You can style this item in a Card or just a Column
     Box(
         modifier = Modifier
             .padding(horizontal = 4.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(dayBackgroundColor)
-            .border(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
-                shape = RoundedCornerShape(8.dp)
-            )
             .padding(8.dp)
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.width(60.dp) // Maintain uniform width
+            modifier = Modifier.width(60.dp)
         ) {
             Text(
                 text = item.label,

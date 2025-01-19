@@ -2,10 +2,15 @@ package com.stc.openweatherapp.composable.daily
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.stc.openweatherapp.model.TempItem
 
@@ -31,13 +36,22 @@ fun TemperatureRow(
         TempItem("Evening", eveTemp, eveFeels),
         TempItem("Night", nightTemp, nightFeels)
     )
-
-    LazyRow(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(0.dp)
+    Card(
+        modifier = Modifier
+            .padding(8.dp)
+            .clip(CardDefaults.shape)
+            .clip(CardDefaults.shape),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer
+        )
     ) {
-        items(tempList) { item ->
-            TemperatureItem(item)
+        LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(0.dp)
+        ) {
+            items(tempList) { item ->
+                TemperatureItem(item)
+            }
         }
     }
 }

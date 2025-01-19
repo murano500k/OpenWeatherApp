@@ -12,12 +12,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme.colors
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,13 +45,18 @@ fun DaySelector(
     onDaySelected: (Int) -> Unit
 ) {
     val dayFormatter = SimpleDateFormat("EEE", Locale.getDefault())
-    val greyBackground = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f)
+    val listState = rememberLazyListState() // Remember the LazyListState
 
+    // Scroll to the selected item when the Composable is first composed
+    LaunchedEffect(selectedDayIndex) {
+        listState.scrollToItem(selectedDayIndex)
+    }
 
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
+        state = listState, // Attach the LazyListState
         horizontalArrangement = Arrangement.spacedBy(1.dp)
     ) {
         itemsIndexed(dailyWeather) { index, daily ->
@@ -65,31 +76,27 @@ fun DaySelector(
                 "https://openweathermap.org/img/wn/$iconId@2x.png"
             }
 
-            Box(
+            Card(
                 modifier = Modifier
-                    .padding(horizontal = 4.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(
-                        if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
-                        else greyBackground
-                    ) // Apply grey background
-                    .border(
-                        width = if (isSelected) 2.dp else 1.dp,
-                        color = if (isSelected) MaterialTheme.colorScheme.primary
-                        else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
-                        shape = RoundedCornerShape(8.dp)
-                    )
-                    .clickable { onDaySelected(index) }
-                    .padding(4.dp)
+                    .padding(vertical = 8.dp)
+                    .clip(CardDefaults.shape)
+                    .clickable { onDaySelected(index) },
+                colors = CardDefaults.cardColors(
+                    containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer
+                    else MaterialTheme.colorScheme.surfaceContainerHigh
+                )
             ) {
                 Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .padding(vertical = 8.dp)
+                        .width(60.dp)
                 ) {
                     // Day label
                     Text(
                         text = dayLabel,
                         style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                        color = if (isSelected) MaterialTheme.colorScheme.primary
+                        color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer
                         else MaterialTheme.colorScheme.onSurface
                     )
 
@@ -113,12 +120,14 @@ fun DaySelector(
                         Text(
                             text = "$dayTemp°/",
                             style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.primary
+                            color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer
+                            else MaterialTheme.colorScheme.onSurface
                         )
                         Text(
                             text = "$nightTemp°",
                             style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.secondary
+                            color = if (isSelected) MaterialTheme.colorScheme.onSecondaryContainer
+                            else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }

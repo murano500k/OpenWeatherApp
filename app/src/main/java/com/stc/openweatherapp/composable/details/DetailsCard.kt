@@ -1,5 +1,6 @@
 package com.stc.openweatherapp.composable.details
 
+import DetailsType
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,22 +26,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.stc.openweatherapp.R
-import com.stc.openweatherapp.composable.details.DetailsType.HUMIDITY
-import com.stc.openweatherapp.composable.details.DetailsType.PRECIPITATION
-import com.stc.openweatherapp.composable.details.DetailsType.WIND
 import com.stc.openweatherapp.viewmodel.WeatherViewModel
 
-
-object DetailsType {
-    const val PRECIPITATION = "Precipitation"
-    const val WIND = "Wind"
-    const val HUMIDITY = "Humidity"
-}
 
 @Composable
 fun DetailsCard(
@@ -48,34 +41,58 @@ fun DetailsCard(
 ) {
     val weatherData by viewModel.weatherData.observeAsState()
     val hourlyWeatherList = weatherData?.hourly ?: emptyList()
-    var selectedType by remember { mutableStateOf(WIND) }
+    var selectedType by remember { mutableStateOf<DetailsType>(DetailsType.Wind) }
     Card(
         modifier = Modifier
-            .fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(8.dp),
-        shape = RoundedCornerShape(8.dp), // Rounded corners
+            .padding(8.dp)
+            .clip(CardDefaults.shape)
+            .clip(CardDefaults.shape),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer // Background color
+            containerColor = MaterialTheme.colorScheme.surfaceContainer
         )
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(8.dp)
         ) {
-            // Top: Buttons for Wind and Humidity
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp),
                 horizontalArrangement = Arrangement.Start
             ) {
+
+                // Wind Button
                 TextButton(
-                    onClick = { selectedType = PRECIPITATION },
+                    onClick = { selectedType = DetailsType.Wind },
                     modifier = Modifier
                         .padding(4.dp)
                         .background(
-                            if (selectedType == PRECIPITATION)
+                            if (selectedType == DetailsType.Wind)
+                                MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
+                            else
+                                Color.Transparent,
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_wind),
+                        contentDescription = "Wind Icon",
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = stringResource(id = R.string.wind),
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+                TextButton(
+                    onClick = { selectedType = DetailsType.Precipitation },
+                    modifier = Modifier
+                        .padding(4.dp)
+                        .background(
+                            if (selectedType == DetailsType.Precipitation)
                                 MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
                             else
                                 Color.Transparent,
@@ -94,38 +111,14 @@ fun DetailsCard(
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
-                // Wind Button
-                TextButton(
-                    onClick = { selectedType = WIND },
-                    modifier = Modifier
-                        .padding(4.dp)
-                        .background(
-                            if (selectedType == WIND)
-                                MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
-                            else
-                                Color.Transparent,
-                            shape = RoundedCornerShape(16.dp)
-                        )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_wind),
-                        contentDescription = "Wind Icon",
-                        modifier = Modifier.size(20.dp)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = stringResource(id = R.string.wind),
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
 
                 // Humidity Button
                 TextButton(
-                    onClick = { selectedType = HUMIDITY },
+                    onClick = { selectedType = DetailsType.Humidity },
                     modifier = Modifier
                         .padding(4.dp)
                         .background(
-                            if (selectedType == HUMIDITY)
+                            if (selectedType == DetailsType.Humidity)
                                 MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
                             else
                                 Color.Transparent,
@@ -148,26 +141,17 @@ fun DetailsCard(
             // Horizontal Scrolling List
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                when (selectedType) {
-                    WIND -> {
-                        items(hourlyWeatherList) { hourlyWeather ->
-                            WindHourlyItem(hourlyWeather = hourlyWeather)
-                        }
-                    }
+                items(hourlyWeatherList) { hourlyWeather ->
+                    DetailsHourlyItem(
+                        hourlyWeather = hourlyWeather,
+                        type = selectedType,
+                        modifier = Modifier
+                            .width(40.dp) // Fixed width for uniformity
+                            .padding(vertical = 4.dp)
+                        )
 
-                    PRECIPITATION -> {
-                        items(hourlyWeatherList) { hourlyWeather ->
-                            PrecipitationHourlyItem(hourlyWeather = hourlyWeather)
-                        }
-                    }
-
-                    HUMIDITY -> {
-                        items(hourlyWeatherList) { hourlyWeather ->
-                            HumidityHourlyItem(hourlyWeather = hourlyWeather)
-                        }
-                    }
                 }
             }
         }

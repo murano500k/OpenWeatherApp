@@ -1,38 +1,35 @@
 package com.stc.openweatherapp.composable
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.stc.openweatherapp.util.getPressureDescription
+import com.stc.openweatherapp.util.toBarString
 
 @Composable
-fun PressureCard(pressure: Int) {
+fun PressureCard(pressure: Int, modifier: Modifier) {
     val pressureDescription = getPressureDescription(pressure)
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        )
+        modifier = modifier
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
         ) {
             // Title text
             Text(
@@ -40,22 +37,19 @@ fun PressureCard(pressure: Int) {
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
-
             Spacer(modifier = Modifier.height(8.dp))
-
-            // Display the numeric pressure value
             Text(
-                text = "$pressure hPa",
-                style = MaterialTheme.typography.bodyMedium,
+                text = "${pressure.toBarString()} Bar",
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = pressureDescription,
+                style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface
             )
 
-            // Display the relative description (e.g., “High”)
-            Text(
-                text = pressureDescription,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-            )
         }
     }
 }
