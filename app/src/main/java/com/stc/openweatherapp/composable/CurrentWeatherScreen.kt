@@ -17,9 +17,15 @@ import com.stc.openweatherapp.util.capitalizeFirstLetter
 import com.stc.openweatherapp.util.limitToOneDecimal
 
 @Composable
-fun CurrentWeatherScreen(currentWeather: CurrentWeather) {
-    val iconUrl = currentWeather.weather.firstOrNull()?.icon?.let { iconId ->
-        "https://openweathermap.org/img/wn/$iconId@4x.png"
+fun CurrentWeatherScreen(
+    date: String,
+    iconId: String,
+    temp: Double,
+    feelsLike: Double,
+    description: String
+) {
+    val iconUrl = iconId.let {
+        "https://openweathermap.org/img/wn/$it@4x.png"
     }
     Column(
         modifier = Modifier
@@ -28,7 +34,7 @@ fun CurrentWeatherScreen(currentWeather: CurrentWeather) {
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = "Now",
+            text = date,
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(bottom = 8.dp)
         )
@@ -48,13 +54,13 @@ fun CurrentWeatherScreen(currentWeather: CurrentWeather) {
                 )
             }
             Text(
-                text = "${currentWeather.temp.limitToOneDecimal()}°C",
+                text = "${temp.limitToOneDecimal()}°C",
                 style = MaterialTheme.typography.displayMedium, // Larger font for temperature
                 modifier = Modifier.padding(bottom = 8.dp)
             )
         }
         Text(
-            text = currentWeather.weather[0].description.capitalizeFirstLetter(),
+            text = description.capitalizeFirstLetter(),
             style = MaterialTheme.typography.titleMedium, // Slightly smaller font
             modifier = Modifier.padding(bottom = 16.dp)
         )
@@ -65,7 +71,7 @@ fun CurrentWeatherScreen(currentWeather: CurrentWeather) {
             modifier = Modifier.padding(top = 8.dp)
         ) {
             Text(
-                text = "Feels like: ${currentWeather.feels_like.limitToOneDecimal()}°C",
+                text = "Feels like: ${feelsLike.limitToOneDecimal()}°C",
                 style = MaterialTheme.typography.bodyMedium
             )
         }

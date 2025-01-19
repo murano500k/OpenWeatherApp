@@ -1,8 +1,11 @@
 package com.stc.openweatherapp.util
 
 import android.content.Context
+import android.content.SyncInfo
 import android.text.format.DateFormat
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 fun String.capitalizeFirstLetter(): String {
     return this.replaceFirstChar {

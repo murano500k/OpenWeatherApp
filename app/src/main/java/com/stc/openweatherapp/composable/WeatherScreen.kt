@@ -102,7 +102,13 @@ fun WeatherScreen(
             }
             weatherData?.let { weather ->
                 item {
-                    CurrentWeatherScreen(currentWeather = weather.current)
+                    CurrentWeatherScreen(
+                        date = "Now",
+                        iconId = weather.current.weather[0].icon,
+                        temp = weather.current.temp,
+                        feelsLike = weather.current.feels_like,
+                        description = weather.current.weather[0].description
+                    )
                 }
                 item {
                     Spacer(modifier = Modifier.height(16.dp))
