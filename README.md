@@ -28,19 +28,17 @@ Welcome to the **Open Weather**, a lightweight and user-friendly application tha
 
 ### Prerequisites
 - Android Studio Arctic Fox or later.
-- Minimum SDK: 21
-- Recommended: Android 10 (API 29) or higher.
 
 ### Setup Instructions
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/android-weather-app.git
+   git clone https://github.com/murano500k/OpenWeatherApp.git
    ```
 2. Open the project in Android Studio.
-3. Add your API key for the weather service provider in `local.properties`:
+3. Add your API key for the [OpenWeatherMap API service](https://openweathermap.org/api) provider in `local.properties`:
    ```properties
-   WEATHER_API_KEY=your_api_key_here
+   OPEN_WEATHER_API_KEY=your_api_key_here
    ```
 4. Build and run the app on your emulator or physical device.
 
