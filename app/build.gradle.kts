@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -21,6 +23,16 @@ android {
             useSupportLibrary = true
         }
         buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"94b5cb3b2ef49b9c0bfe5e08ff7d2567\"")
+    }
+    signingConfigs {
+        onKeystore { props ->
+            create("artem_keystore") {
+                storeFile = File(rootProject.mkdir("keystore"), props.getProperty("storeFile"))
+                storePassword = props.getProperty("storePassword")
+                keyAlias = props.getProperty("artem_key")
+                keyPassword = props.getProperty("keyPassword")
+            }
+        }
     }
 
     buildTypes {
@@ -57,6 +69,7 @@ android {
     hilt {
         enableAggregatingTask = false
     }
+
 }
 
 dependencies {
@@ -97,4 +110,11 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
 
 
+}
+
+inline fun onKeystore(block: (props: Properties) -> Unit) {
+    val keystore = File(rootProject.mkdir("keystore").path, "keystore.properties")
+    if (keystore.exists().not()) return
+    val props = Properties().apply { keystore.inputStream().use(::load) }
+    block(props)
 }
