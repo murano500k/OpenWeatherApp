@@ -1,0 +1,59 @@
+Privacy Policy
+
+Effective Date: 25.01.2025
+
+OpenWeather ("App"), a simple weather application designed to provide accurate and up-to-date weather information. This Privacy Policy describes how we collect, use, and protect your information when you use our App.
+
+1. Information We Collect
+
+We aim to minimize the collection of personal data. However, to provide weather-related services, we may collect:
+
+a. Location Information
+
+The App may request access to your device's location to deliver accurate weather forecasts for your current area.
+
+You can deny this permission; however, doing so may limit the functionality of the App.
+
+b. Non-Personal Information
+
+We may collect non-identifiable information, such as device type, operating system, and app usage statistics, to improve the App's performance and user experience.
+
+2. How We Use Your Information
+
+The information we collect is used solely for the following purposes:
+
+To provide localized weather forecasts based on your location.
+
+To improve and optimize the functionality and user experience of the App.
+
+To diagnose and resolve technical issues.
+
+3. Information Sharing and Disclosure
+
+We do not sell, trade, or rent your personal data to third parties. However, we may share your information:
+
+With service providers: For example, with weather data providers to fetch weather forecasts.
+
+As required by law: To comply with legal obligations, respond to legal processes, or enforce our terms and policies.
+
+4. Data Security
+
+We are committed to protecting your data. We implement appropriate technical and organizational measures to secure your information. However, please note that no method of electronic transmission or storage is 100% secure, and we cannot guarantee absolute security.
+
+5. Your Choices
+
+Location Access: You can revoke location permissions via your device settings at any time.
+
+Data Removal: The App does not store any personal data. If you believe data has been inadvertently stored, please contact us at [Insert Contact Email].
+
+6. Changes to This Privacy Policy
+
+We reserve the right to update this Privacy Policy at any time. We encourage you to review this page periodically for any changes. Changes are effective immediately upon posting to this page.
+
+7. Contact Us
+
+If you have questions or concerns about this Privacy Policy or our data practices, please contact us at:
+
+[Your Name/Company Name]Email: [Insert Contact Email]Address: [Insert Address, if applicable]
+
+By using the OpenWeatherApp, you agree to the terms of this Privacy Policy.
