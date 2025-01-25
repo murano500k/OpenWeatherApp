@@ -1,4 +1,4 @@
-# Android Weather App
+# Open Weather
 
 Welcome to the **Open Weather**, a lightweight and user-friendly application that provides real-time weather updates, daily forecasts, and more. Built with **Jetpack Compose**, this app showcases modern Android development practices.
 
