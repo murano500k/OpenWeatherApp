@@ -1,4 +1,4 @@
-package com.stc.openweatherapp.composable
+package com.stc.openweatherapp.composable.widgets
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.stc.openweatherapp.model.CurrentWeather
 import com.stc.openweatherapp.util.capitalizeFirstLetter
 import com.stc.openweatherapp.util.limitToOneDecimal
 

@@ -1,4 +1,4 @@
-package com.stc.openweatherapp.composable
+package com.stc.openweatherapp.composable.widgets
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions

@@ -18,7 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.stc.openweatherapp.R
-import com.stc.openweatherapp.composable.DropletIcon
+import com.stc.openweatherapp.composable.elements.DropletIcon
 import com.stc.openweatherapp.model.HourlyWeather
 import com.stc.openweatherapp.util.formatLocalTime
 import kotlin.math.roundToInt

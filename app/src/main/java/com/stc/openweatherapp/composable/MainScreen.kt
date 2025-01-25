@@ -3,7 +3,6 @@ package com.stc.openweatherapp.composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
@@ -16,14 +15,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,8 +33,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.stc.openweatherapp.composable.details.DetailsCard
+import com.stc.openweatherapp.composable.widgets.SearchBox
+import com.stc.openweatherapp.composable.hourly.HourlyWeatherScreen
+import com.stc.openweatherapp.composable.widgets.CurrentWeatherScreen
+import com.stc.openweatherapp.composable.widgets.DailyWeatherList
+import com.stc.openweatherapp.composable.widgets.HumidityCard
+import com.stc.openweatherapp.composable.widgets.PressureCard
+import com.stc.openweatherapp.composable.widgets.SunCard
+import com.stc.openweatherapp.composable.widgets.UviCard
 import com.stc.openweatherapp.viewmodel.WeatherViewModel
 
 

@@ -3,7 +3,6 @@ package com.stc.openweatherapp.composable.daily
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
@@ -17,7 +16,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -40,21 +38,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.stc.openweatherapp.PrecipitationCard
 import com.stc.openweatherapp.R
-import com.stc.openweatherapp.composable.CurrentWeatherScreen
-import com.stc.openweatherapp.composable.HumidityCard
-import com.stc.openweatherapp.composable.PressureCard
-import com.stc.openweatherapp.composable.SunCard
-import com.stc.openweatherapp.composable.UviCard
-import com.stc.openweatherapp.composable.WindCard
-import com.stc.openweatherapp.util.capitalizeFirstLetter
-import com.stc.openweatherapp.util.getPressureDescription
-import com.stc.openweatherapp.util.toBarString
+import com.stc.openweatherapp.composable.widgets.CurrentWeatherScreen
+import com.stc.openweatherapp.composable.widgets.HumidityCard
+import com.stc.openweatherapp.composable.widgets.PressureCard
+import com.stc.openweatherapp.composable.widgets.SunCard
+import com.stc.openweatherapp.composable.widgets.UviCard
+import com.stc.openweatherapp.composable.widgets.WindCard
 import com.stc.openweatherapp.viewmodel.WeatherViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import kotlin.math.round
-import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class,
     ExperimentalLayoutApi::class

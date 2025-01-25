@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.stc.openweatherapp"
+    namespace = "com.stc.openweather"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.stc.openweatherapp"
+        applicationId = "com.stc.openweather"
         minSdk = 30
         targetSdk = 35
         versionCode = 1
