@@ -11,7 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import com.stc.openweather.R
 
 @Composable
 fun SearchBox(
@@ -24,7 +26,7 @@ fun SearchBox(
     OutlinedTextField(
         value = query,
         onValueChange = onQueryChanged,
-        label = { Text("Search for a location") },
+        label = { Text(stringResource(R.string.search)) },
         modifier = Modifier
             .fillMaxWidth(),
         placeholder = { Text("Search location") },

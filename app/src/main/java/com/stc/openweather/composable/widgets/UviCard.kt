@@ -8,15 +8,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.stc.openweather.util.getUviAdvice
 import com.stc.openweather.util.getUviCategory
 
 @Composable
 fun UviCard(uvi: Double, modifier: Modifier) {
-    val uviCategory = getUviCategory(uvi)        // e.g. "High"
-    val advice = getUviAdvice(uvi)              // e.g. "Cover up, use SPF 30+, ..."
-    val displayUvi = String.format("%.1f", uvi) // Round to 1 decimal place
+    val uviCategory = getUviCategory(LocalContext.current, uvi)
+    val advice = getUviAdvice(LocalContext.current, uvi)
+    val displayUvi = String.format("%.1f", uvi)
 
     Card(
         modifier = modifier

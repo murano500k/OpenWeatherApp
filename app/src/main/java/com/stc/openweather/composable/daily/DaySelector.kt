@@ -22,9 +22,8 @@ fun DaySelector(
     selectedDayIndex: Int,
     onDaySelected: (Int) -> Unit
 ) {
-    val listState = rememberLazyListState() // Remember the LazyListState
+    val listState = rememberLazyListState()
 
-    // Scroll to the selected item when the Composable is first composed
     LaunchedEffect(selectedDayIndex) {
         listState.scrollToItem(selectedDayIndex)
     }

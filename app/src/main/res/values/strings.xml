@@ -18,4 +18,57 @@
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
 
+    <!-- Wind Directions -->
+    <string name="direction_north">North</string>
+    <string name="direction_north_east">North-East</string>
+    <string name="direction_east">East</string>
+    <string name="direction_south_east">South-East</string>
+    <string name="direction_south">South</string>
+    <string name="direction_south_west">South-West</string>
+    <string name="direction_west">West</string>
+    <string name="direction_north_west">North-West</string>
+
+    <!-- UVI Categories -->
+    <string name="uvi_low">Low</string>
+    <string name="uvi_moderate">Moderate</string>
+    <string name="uvi_high">High</string>
+    <string name="uvi_very_high">Very High</string>
+    <string name="uvi_extreme">Extreme</string>
+
+    <!-- UVI Advice -->
+    <string name="advice_low">Minimal protection required.</string>
+    <string name="advice_moderate">Seek shade during midday hours, use SPF 15+.</string>
+    <string name="advice_high">Cover up, use SPF 30+, and limit midday sun.</string>
+    <string name="advice_very_high">Extra protection needed! Hat, sunglasses, and SPF 30+.</string>
+    <string name="advice_extreme">Take all precautions. Avoid midday sun if possible.</string>
+    <string name="advice_default">Stay safe in the sun!</string>
+
+    <!-- Wind Descriptions -->
+    <string name="wind_calm">Calm</string>
+    <string name="wind_light">Light</string>
+    <string name="wind_gentle">Gentle</string>
+    <string name="wind_moderate">Moderate</string>
+    <string name="wind_fresh">Fresh</string>
+    <string name="wind_strong">Strong</string>
+    <string name="wind_very_strong">Very Strong</string>
+    <string name="wind_stormy">Stormy</string>
+
+    <!-- Pressure Descriptions -->
+    <string name="pressure_low">Low</string>
+    <string name="pressure_slightly_low">Slightly Low</string>
+    <string name="pressure_normal">Normal</string>
+    <string name="pressure_high">High</string>
+    <string name="pressure_very_high">Very High</string>
+    <string name="pressure">Pressure</string>
+    <string name="daily_forecast">Daily Forecast</string>
+
+    <string name="time_morning">Morning</string>
+    <string name="time_day">Day</string>
+    <string name="time_evening">Evening</string>
+    <string name="time_night">Night</string>
+
+    <string name="weather_icon_url">https://openweathermap.org/img/wn/%1$s@4x.png</string>
+    <string name="search">Search for a location</string>
+
+
 </resources>

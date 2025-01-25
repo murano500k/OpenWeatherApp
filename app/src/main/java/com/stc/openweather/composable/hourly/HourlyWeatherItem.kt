@@ -20,8 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.stc.openweather.R
 import com.stc.openweather.model.HourlyWeather
 import com.stc.openweather.util.formatLocalTime
 import com.stc.openweather.util.getUviCategory
@@ -42,7 +44,7 @@ fun HourlyWeatherItem(
 
     // Weather icon URL
     val iconUrl = hourlyWeather.weather.firstOrNull()?.icon?.let { iconId ->
-        "https://openweathermap.org/img/wn/$iconId@4x.png"
+         stringResource(R.string.weather_icon_url, iconId)
     }
 
     Card(
@@ -56,11 +58,12 @@ fun HourlyWeatherItem(
             else MaterialTheme.colorScheme.primaryContainer
         )
     ) {
-        Row (modifier = Modifier.padding(vertical = 8.dp),) {
+        Row(modifier = Modifier.padding(vertical = 8.dp)) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.width(40.dp)
-                    .padding(vertical = 8.dp   )// Maintain uniform width
+                modifier = Modifier
+                    .width(40.dp)
+                    .padding(vertical = 8.dp)
             ) {
                 // Weather Icon
                 if (iconUrl != null) {
@@ -130,7 +133,7 @@ fun HourlyWeatherItem(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "UVI: ${getUviCategory(hourlyWeather.uvi)}",
+                        text = "UVI: ${getUviCategory(LocalContext.current, hourlyWeather.uvi)}",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSecondaryContainer
                     )
@@ -138,7 +141,7 @@ fun HourlyWeatherItem(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "Visibility: ${hourlyWeather.visibility/1000} km",
+                        text = "Visibility: ${hourlyWeather.visibility / 1000} km",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSecondaryContainer
                     )

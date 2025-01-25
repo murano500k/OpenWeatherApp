@@ -18,9 +18,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.stc.openweather.R
 import com.stc.openweather.model.DailyWeather
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -33,9 +35,10 @@ fun DailyWeatherItem(
     isToday: Boolean = false,
     onClick: () -> Unit
 ) {
+    val todayText = stringResource(R.string.today)
     val dateText = remember(daily.dt) {
         if (isToday) {
-            "Today"
+            todayText
         } else {
             val dateFormat = SimpleDateFormat("EEE, dd MMM", Locale.getDefault())
             dateFormat.format(Date(daily.dt * 1000))
@@ -45,7 +48,7 @@ fun DailyWeatherItem(
     val popPercent = ((daily.pop) * 100).toInt()
 
     val iconUrl = daily.weather.firstOrNull()?.icon?.let { iconId ->
-        "https://openweathermap.org/img/wn/$iconId@2x.png"
+        stringResource(R.string.weather_icon_url, iconId)
     }
 
     val dayTemp = daily.temp.day.roundToInt()
@@ -62,8 +65,7 @@ fun DailyWeatherItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp)
-            ,
+                .padding(horizontal = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             // LEFT SECTION: Date & Precipitation in one horizontal line
@@ -125,7 +127,7 @@ fun DailyWeatherItem(
                 Text(
                     text = "$nightTemp°C",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy( alpha = 0.7f )
+                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
                 )
             }
         }

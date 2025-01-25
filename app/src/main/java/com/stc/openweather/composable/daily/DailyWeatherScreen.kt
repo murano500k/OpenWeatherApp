@@ -36,10 +36,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.stc.openweather.PrecipitationCard
 import com.stc.openweather.R
 import com.stc.openweather.composable.widgets.CurrentWeatherScreen
 import com.stc.openweather.composable.widgets.HumidityCard
+import com.stc.openweather.composable.widgets.PrecipitationCard
 import com.stc.openweather.composable.widgets.PressureCard
 import com.stc.openweather.composable.widgets.SunCard
 import com.stc.openweather.composable.widgets.UviCard
@@ -49,7 +49,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class,
+@OptIn(
+    ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class,
     ExperimentalLayoutApi::class
 )
 @Composable
@@ -89,8 +90,8 @@ fun DailyWeatherScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding) // Respect inner padding from Scaffold
-                .pullRefresh(pullRefreshState) // Add pull-to-refresh behavior inside Scaffold content
+                .padding(innerPadding)
+                .pullRefresh(pullRefreshState)
         ) {
             LazyColumn(
                 modifier = Modifier
@@ -175,12 +176,18 @@ fun DailyWeatherScreen(
                             dewPoint = selectedDay.dew_point,
                             modifier = itemModifier
                         )
-                        UviCard(uvi = selectedDay.uvi,
-                            modifier = itemModifier)
-                        PressureCard(pressure = selectedDay.pressure,
-                            modifier = itemModifier)
-                        SunCard(selectedDay.sunrise, selectedDay.sunset,
-                            modifier = itemModifier)
+                        UviCard(
+                            uvi = selectedDay.uvi,
+                            modifier = itemModifier
+                        )
+                        PressureCard(
+                            pressure = selectedDay.pressure,
+                            modifier = itemModifier
+                        )
+                        SunCard(
+                            selectedDay.sunrise, selectedDay.sunset,
+                            modifier = itemModifier
+                        )
                     }
                 }
             }

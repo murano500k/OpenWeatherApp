@@ -35,7 +35,7 @@ fun DetailsHourlyItem(
         context.formatLocalTime(hourlyWeather.dt * 1000)
     }
 
-    val text = when(type) {
+    val text = when (type) {
         DetailsType.Humidity -> "${hourlyWeather.humidity}%"
         DetailsType.Precipitation -> "${(hourlyWeather.pop * 100).toInt()}%"
         DetailsType.Wind -> "${hourlyWeather.wind_speed.roundToInt()} m/s"
@@ -46,12 +46,13 @@ fun DetailsHourlyItem(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
-        when(type) {
+        when (type) {
             DetailsType.Humidity ->
                 DropletIcon(
                     modifier = Modifier.size(40.dp),
                     humidity = hourlyWeather.humidity
                 )
+
             DetailsType.Precipitation -> {
                 val iconUrl = hourlyWeather.weather.firstOrNull()?.icon?.let { iconId ->
                     "https://openweathermap.org/img/wn/$iconId@4x.png"
@@ -64,6 +65,7 @@ fun DetailsHourlyItem(
                     )
                 }
             }
+
             DetailsType.Wind -> {
                 val arrowRotation = (hourlyWeather.wind_deg + 180) % 360
                 Icon(

@@ -15,7 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.stc.openweather.R
 import com.stc.openweather.model.TempItem
 import kotlin.math.roundToInt
 
@@ -36,10 +38,10 @@ fun TemperatureRow(
 ) {
 
     val tempList = listOf(
-        TempItem("Morning", mornTemp, mornFeels),
-        TempItem("Day", dayTemp, dayFeels),
-        TempItem("Evening", eveTemp, eveFeels),
-        TempItem("Night", nightTemp, nightFeels)
+        TempItem(stringResource(R.string.time_morning), mornTemp, mornFeels),
+        TempItem(stringResource(R.string.time_day), dayTemp, dayFeels),
+        TempItem(stringResource(R.string.time_evening), eveTemp, eveFeels),
+        TempItem(stringResource(R.string.time_night), nightTemp, nightFeels)
     )
     Card(
         modifier = Modifier

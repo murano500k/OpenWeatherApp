@@ -16,24 +16,21 @@ import androidx.compose.ui.unit.dp
 fun DropletIcon(
     humidity: Int,
     modifier: Modifier = Modifier,
-    outlineColor: Color = MaterialTheme.colorScheme.primary, // Color for the contour
-    fillColor: Color = MaterialTheme.colorScheme.primary/*.copy(alpha = 0.5f)*/ // Color for the filled part
+    outlineColor: Color = MaterialTheme.colorScheme.primary,
+    fillColor: Color = MaterialTheme.colorScheme.primary
 ) {
     Canvas(modifier = modifier) {
         val width = size.width
         val height = size.height
 
-        // Calculate the filled height based on humidity percentage
         val fillHeight = height * (humidity / 100f)
 
-        // Draw the droplet outline
         drawPath(
             path = createDropletPath(width, height),
             color = outlineColor,
-            style = Stroke(width = 1.dp.toPx()) // Outline with a stroke
+            style = Stroke(width = 1.dp.toPx())
         )
 
-        // Clip the filling to the droplet shape
         clipPath(createDropletPath(width, height)) {
             drawRect(
                 color = fillColor,
@@ -45,7 +42,6 @@ fun DropletIcon(
 }
 
 
-// Create the droplet path
 private fun createDropletPath(width: Float, height: Float): Path {
     val path = Path()
     path.moveTo(width / 2f, 0f) // Top of the droplet

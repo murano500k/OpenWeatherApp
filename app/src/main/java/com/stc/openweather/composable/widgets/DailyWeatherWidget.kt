@@ -11,7 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.stc.openweather.R
 import com.stc.openweather.model.DailyWeather
 
 @Composable
@@ -33,7 +35,7 @@ fun DailyWeatherList(
             modifier = Modifier.padding(8.dp)
         ) {
             Text(
-                text = "Daily Forecast",
+                text = stringResource(R.string.daily_forecast),
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(8.dp)
             )

@@ -8,13 +8,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.stc.openweather.R
 import com.stc.openweather.util.getPressureDescription
 import com.stc.openweather.util.toBarString
 
 @Composable
 fun PressureCard(pressure: Int, modifier: Modifier) {
-    val pressureDescription = getPressureDescription(pressure)
+    val pressureDescription = getPressureDescription(LocalContext.current, pressure)
 
     Card(
         modifier = modifier
@@ -24,7 +27,7 @@ fun PressureCard(pressure: Int, modifier: Modifier) {
         ) {
             // Title text
             Text(
-                text = "Pressure",
+                text = stringResource(R.string.pressure),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )

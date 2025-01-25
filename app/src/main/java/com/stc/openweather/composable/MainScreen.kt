@@ -11,9 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ExperimentalMaterialApi
@@ -21,7 +19,6 @@ import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,12 +32,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.stc.openweather.composable.details.DetailsCard
-import com.stc.openweather.composable.widgets.SearchBox
 import com.stc.openweather.composable.hourly.HourlyWeatherScreen
 import com.stc.openweather.composable.widgets.CurrentWeatherScreen
 import com.stc.openweather.composable.widgets.DailyWeatherList
 import com.stc.openweather.composable.widgets.HumidityCard
 import com.stc.openweather.composable.widgets.PressureCard
+import com.stc.openweather.composable.widgets.SearchBox
 import com.stc.openweather.composable.widgets.SunCard
 import com.stc.openweather.composable.widgets.UviCard
 import com.stc.openweather.viewmodel.WeatherViewModel
@@ -160,12 +157,18 @@ fun WeatherScreen(
                             dewPoint = weather.current.dew_point,
                             modifier = itemModifier
                         )
-                        UviCard(uvi = weather.current.uvi,
-                            modifier = itemModifier)
-                        PressureCard(pressure = weather.current.pressure,
-                            modifier = itemModifier)
-                        SunCard(weather.current.sunrise, weather.current.sunset,
-                            modifier = itemModifier)
+                        UviCard(
+                            uvi = weather.current.uvi,
+                            modifier = itemModifier
+                        )
+                        PressureCard(
+                            pressure = weather.current.pressure,
+                            modifier = itemModifier
+                        )
+                        SunCard(
+                            weather.current.sunrise, weather.current.sunset,
+                            modifier = itemModifier
+                        )
                     }
 
                 }

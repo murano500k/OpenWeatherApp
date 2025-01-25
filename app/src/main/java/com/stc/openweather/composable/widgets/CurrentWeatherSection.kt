@@ -10,8 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.stc.openweather.R
 import com.stc.openweather.util.capitalizeFirstLetter
 import com.stc.openweather.util.limitToOneDecimal
 
@@ -23,9 +25,8 @@ fun CurrentWeatherScreen(
     feelsLike: Double,
     description: String
 ) {
-    val iconUrl = iconId.let {
-        "https://openweathermap.org/img/wn/$it@4x.png"
-    }
+    val iconUrl = stringResource(R.string.weather_icon_url, iconId)
+
     Column(
         modifier = Modifier
             .fillMaxSize()

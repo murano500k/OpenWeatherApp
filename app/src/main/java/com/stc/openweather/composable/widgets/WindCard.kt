@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.stc.openweather.R
@@ -27,11 +28,11 @@ fun WindCard(
     modifier: Modifier = Modifier
 ) {
     // Convert degrees to a text direction
-    val windDirectionText = windDeg.windDegreesToDirection()
+    val windDirectionText = windDeg.windDegreesToDirection(LocalContext.current)
     // Format wind speed with one decimal (e.g. "5.4")
     val displaySpeed = String.format("%.1f", windSpeed)
     // Brief description (e.g., "Moderate", "Strong")
-    val windDescription = getWindDescription(windSpeed)
+    val windDescription = getWindDescription(LocalContext.current, windSpeed)
 
     // Calculate how much to rotate the arrow so it points "from" wind direction
     val arrowRotation = (windDeg + 180) % 360

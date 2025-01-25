@@ -1,4 +1,4 @@
-package com.stc.openweather
+package com.stc.openweather.composable.widgets
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,7 +8,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.stc.openweather.R
 import kotlin.math.roundToInt
 
 @Composable
@@ -20,7 +22,7 @@ fun PrecipitationCard(precipitation: Double, modifier: Modifier) {
             modifier = Modifier
         ) {
             Text(
-                text = "Precipitation",
+                text = stringResource(R.string.precipitation),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
