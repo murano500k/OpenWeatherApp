@@ -1,4 +1,4 @@
-# Android Weather App
+# Open Weather
 
 Welcome to the **Open Weather**, a lightweight and user-friendly application that provides real-time weather updates, daily forecasts, and more. Built with **Jetpack Compose**, this app showcases modern Android development practices.
 
@@ -11,37 +11,33 @@ Welcome to the **Open Weather**, a lightweight and user-friendly application tha
 
 ## Screenshots
 
-### Main Screen
-![Main Screen](screenshots/mainscreen.png)
-
-### Daily Weather Screen
-![Daily Weather Screen](screenshots/dailyweather.png)
+<p align="center">
+  <img src="screenshots/mainscreen.png" alt="Main Screen" width="30%">
+  <img src="screenshots/dailyweather.png" alt="Daily Weather Screen" width="30%">
+</p>
 
 ## Technologies Used
 
 - **Kotlin**: 100% Kotlin-based code.
 - **Jetpack Compose**: Declarative UI framework for modern Android apps.
 - **Retrofit**: For network calls to fetch weather data.
-- **Room Database**: To store user preferences and offline data.
 - **Hilt**: Dependency injection for managing components efficiently.
 
 ## Getting Started
 
 ### Prerequisites
 - Android Studio Arctic Fox or later.
-- Minimum SDK: 21
-- Recommended: Android 10 (API 29) or higher.
 
 ### Setup Instructions
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/android-weather-app.git
+   git clone https://github.com/murano500k/OpenWeatherApp.git
    ```
 2. Open the project in Android Studio.
-3. Add your API key for the weather service provider in `local.properties`:
+3. Add your API key for the [OpenWeatherMap API service](https://openweathermap.org/api) provider in `local.properties`:
    ```properties
-   WEATHER_API_KEY=your_api_key_here
+   OPEN_WEATHER_API_KEY=your_api_key_here
    ```
 4. Build and run the app on your emulator or physical device.
 
