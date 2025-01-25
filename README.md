@@ -11,11 +11,10 @@ Welcome to the **Open Weather**, a lightweight and user-friendly application tha
 
 ## Screenshots
 
-### Main Screen
-![Main Screen](screenshots/mainscreen.png)
-
-### Daily Weather Screen
-![Daily Weather Screen](screenshots/dailyweather.png)
+<p align="center">
+  <img src="screenshots/mainscreen.png" alt="Main Screen" width="45%">
+  <img src="screenshots/dailyweather.png" alt="Daily Weather Screen" width="45%">
+</p>
 
 ## Technologies Used
 
