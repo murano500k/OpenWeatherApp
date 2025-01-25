@@ -12,8 +12,8 @@ Welcome to the **Open Weather**, a lightweight and user-friendly application tha
 ## Screenshots
 
 <p align="center">
-  <img src="screenshots/mainscreen.png" alt="Main Screen" width="45%">
-  <img src="screenshots/dailyweather.png" alt="Daily Weather Screen" width="45%">
+  <img src="screenshots/mainscreen.png" alt="Main Screen" width="30%">
+  <img src="screenshots/dailyweather.png" alt="Daily Weather Screen" width="30%">
 </p>
 
 ## Technologies Used
@@ -21,7 +21,6 @@ Welcome to the **Open Weather**, a lightweight and user-friendly application tha
 - **Kotlin**: 100% Kotlin-based code.
 - **Jetpack Compose**: Declarative UI framework for modern Android apps.
 - **Retrofit**: For network calls to fetch weather data.
-- **Room Database**: To store user preferences and offline data.
 - **Hilt**: Dependency injection for managing components efficiently.
 
 ## Getting Started
