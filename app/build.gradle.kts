@@ -21,8 +21,18 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+
         }
-        buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"94b5cb3b2ef49b9c0bfe5e08ff7d2567\"")
+        val localProperties = File(rootProject.rootDir, "local.properties")
+        val properties = Properties().apply {
+            if (localProperties.exists()) {
+                load(localProperties.inputStream())
+            }
+        }
+
+        val openWeatherApiKey: String = properties.getProperty("OPEN_WEATHER_API_KEY", "")
+
+        buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"$openWeatherApiKey\"")
     }
     signingConfigs {
         onKeystore { props ->
