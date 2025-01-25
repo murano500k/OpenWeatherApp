@@ -17,7 +17,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -28,3 +28,4 @@ object NetworkModule {
         return retrofit.create(WeatherApiService::class.java)
     }
 }
+const val BASE_URL = "https://api.openweathermap.org/"
