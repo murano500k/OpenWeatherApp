@@ -18,7 +18,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class WeatherViewModel @Inject constructor(
+open class WeatherViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val weatherApiService: WeatherApiService,
     private val fusedLocationClient: FusedLocationProviderClient
