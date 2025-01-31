@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OpenWeatherApp</string>
+    <string name="app_name">SkyBuddy</string>
     <string name="location_permission_denied">Location permission is not granted. Select your location manually</string>
     <string name="error_no_coordinates">Unable to find the location for %1$s.</string>
     <string name="error_fetching_coordinates">Error occurred while fetching the location for %1$s.</string>

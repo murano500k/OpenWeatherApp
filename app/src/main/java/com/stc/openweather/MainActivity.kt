@@ -8,7 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.stc.openweather.composable.navigation.AppNavHost
-import com.stc.openweather.ui.theme.OpenWeatherAppTheme
+import com.stc.openweather.ui.theme.AppTheme
 import com.stc.openweather.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            OpenWeatherAppTheme {
+            AppTheme {
                 AppNavHost()
             }
         }

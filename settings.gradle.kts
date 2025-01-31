@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "OpenWeatherApp"
+rootProject.name = "SkyBuddy"
 include(":app")
  

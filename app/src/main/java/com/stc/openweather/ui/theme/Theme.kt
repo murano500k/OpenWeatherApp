@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-val OpenWeatherDarkColorScheme = darkColorScheme(
+val AppDarkColorScheme = darkColorScheme(
     primary = Blue80,
     onPrimary = Blue20,
     primaryContainer = Blue30,
@@ -41,7 +41,7 @@ val OpenWeatherDarkColorScheme = darkColorScheme(
     outline = BlueGrey60
 )
 
-val OpenWeatherLightColorScheme = lightColorScheme(
+val AppLightColorScheme = lightColorScheme(
     primary = Blue40,
     onPrimary = Color.White,
     primaryContainer = Blue90,
@@ -72,7 +72,7 @@ val OpenWeatherLightColorScheme = lightColorScheme(
 
 @SuppressLint("NewApi")
 @Composable
-fun OpenWeatherAppTheme(
+fun AppTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
     isDynamicColor: Boolean = true,
     content: @Composable () -> Unit
@@ -85,8 +85,8 @@ fun OpenWeatherAppTheme(
         dynamicColor && !isDarkTheme -> {
             dynamicLightColorScheme(LocalContext.current)
         }
-        isDarkTheme -> OpenWeatherDarkColorScheme
-        else -> OpenWeatherLightColorScheme
+        isDarkTheme -> AppDarkColorScheme
+        else -> AppLightColorScheme
     }
 
     MaterialTheme(
